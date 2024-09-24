@@ -1,0 +1,46 @@
+.painel-principal {
+    width: 100%;
+    height: 90vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.painel-esquerdo,
+.painel-direito {
+    width: 50%;
+}
+
+.painel-esquerdo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.painel-esquerdo img {
+    width: 50%;
+    margin-top: 15%;
+}
+
+.painel-esquerdo div {
+    margin-top: 7%
+}
+
+.painel-esquerdo p {
+    font-size: 26px;
+    text-align: center;
+    margin: 0 40px 20px 40px;
+}
+
+.painel-direito {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.painel-direito img {
+    width: 600px;
+
+    transform: scaleX(-1);
+}
