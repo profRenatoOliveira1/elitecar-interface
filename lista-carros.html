@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/navegacao.css">
     <link rel="stylesheet" href="css/listagem.css">
 </head>
-<body>
+<body onload="recuperarListaCarros()">
     <header>
         <nav>
             <a href="lista-clientes.html">CLIENTES</a>
@@ -41,41 +41,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>TOYOTA</td>
-                    <td>Hilux GR-Sport</td>
-                    <td>2024</td>
-                    <td>PRETO</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>MERCEDES BENZ</td>
-                    <td>CLA 200 PROGRESSIVE</td>
-                    <td>2022</td>
-                    <td>CINZA ESPACIAL</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>BMW</td>
-                    <td>X6 M COMPETITION</td>
-                    <td>2023</td>
-                    <td>AZUL CINTILANTE</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
+
+    <script src="js/carro.js"></script>
 </body>
 </html>
