@@ -27,61 +27,68 @@ async function enviaFormulario() {
     }
 }
 
+// Responsável por recuperar as informações do servidor
 async function recuperarListaCarros() {
     try {
-        const respostaServidor = await fetch("http://localhost:3333/lista/carros");
+        const respostaServidor = await fetch('http://localhost:3333/lista/carros');
 
-        if(!respostaServidor.ok) {
-            throw new Error('Erro ao comunicar com o servidor.');
+        if(respostaServidor.ok) {
+            const listaCarros = await respostaServidor.json();
+            criarTabelaCarros(listaCarros);
         }
 
-        const listaDeCarros = await respostaServidor.json();
-
-        console.log(listaDeCarros);
-        criarTabelaCarros(listaDeCarros);
+        return null;
     } catch (error) {
-        console.log('Erro ao comunicar com o servidor');
-        console.log(error);
+        console.error(error);
+        return null;
     }
 }
 
+// Responsável por criar a tabela
 async function criarTabelaCarros(carros) {
-    const tbody = document.querySelector('tbody');
-    carros.forEach(carro => {
-        const tr = document.createElement('tr');
+    try {
+        const tBody = document.querySelector(`tbody`);
 
-        const tdIdCarro = document.createElement('td');
-        tdIdCarro.innerHTML = carro.idCarro;
-        tr.appendChild(tdIdCarro);
+        carros.map(carro => {
+            const tr = document.createElement('tr');
 
-        const tdMarca = document.createElement('td');
-        tdMarca.innerHTML = carro.marca;
-        tr.appendChild(tdMarca);
+            const tdIdCarro = document.createElement('td');
+            tdIdCarro.textContent = carro.idCarro;
+            tr.appendChild(tdIdCarro);
 
-        const tdModelo = document.createElement('td');
-        tdModelo.innerHTML = carro.modelo;
-        tr.appendChild(tdModelo);
+            const tdModelo = document.createElement('td');
+            tdModelo.innerText = carro.modelo;
+            tr.appendChild(tdModelo);
 
-        const tdAno = document.createElement('td');
-        tdAno.innerHTML = carro.ano;
-        tr.appendChild(tdAno);
+            const tdMarca = document.createElement('td');
+            tdMarca.innerText = carro.marca;
+            tr.appendChild(tdMarca);
 
-        const tdCor = document.createElement('td');
-        tdCor.innerHTML = carro.cor;
-        tr.appendChild(tdCor);
+            const tdAno = document.createElement('td');
+            tdAno.innerText = carro.ano;
+            tr.appendChild(tdAno);
 
-        const tdAcoes = document.createElement('td');
-        const imgEditar = document.createElement('img');
-        imgEditar.src = 'assets/icons/pencil-square.svg';
-        imgEditar.alt = 'Editar';
-        const imgExcluir = document.createElement('img');
-        imgExcluir.src = 'assets/icons/trash-fill.svg';
-        imgExcluir.alt = 'Excluir';
+            const tdCor = document.createElement('td');
+            tdCor.innerText = carro.cor;
+            tr.appendChild(tdCor);
 
-        tdAcoes.appendChild(imgEditar);
-        tdAcoes.appendChild(imgExcluir);
-        tr.appendChild(tdAcoes);
+            const tdAcoes = document.createElement('td');
+            const imgEditar = document.createElement('img');
+            imgEditar.src = "./assets/icons/pencil-square.svg";
+            imgEditar.alt = "Editar";
+            tdAcoes.appendChild(imgEditar);
 
-        tbody.appendChild(tr);
-    })
+            const imgDeletar = document.createElement('img');
+            imgDeletar.src = "./assets/icons/trash-fill.svg";
+            imgDeletar.alt = "Deletar";
+            tdAcoes.appendChild(imgDeletar);
+
+            tr.appendChild(tdAcoes);
+
+            tBody.append(tr);
+        });
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
