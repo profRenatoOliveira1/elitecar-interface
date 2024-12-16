@@ -198,11 +198,11 @@ function criarTabelaClientes(clientes) {
             tr.appendChild(tdNomeCliente); // insiro tdNomeCliente como filho de tr
 
             const tdCpfCliente = document.createElement('td'); // cria o td para o CPF do cliente
-            tdCpfCliente.textContent = cliente.cpf; // insere o cpf do cliente
+            tdCpfCliente.textContent = formatarCPF(cliente.cpf); // insere o cpf do cliente
             tr.appendChild(tdCpfCliente); // insere tdCpfCliente como filho de tr
 
             const tdCelular = document.createElement('td'); // cria o td para o email do cliente
-            tdCelular.textContent = cliente.telefone; // insere o email do cliente
+            tdCelular.textContent = formatarTelefone(cliente.telefone); // insere o email do cliente
             tr.appendChild(tdCelular); // insere tdEmail como filho de tr
 
             const tdAcoes = document.createElement('td'); // cria o td para as ações
