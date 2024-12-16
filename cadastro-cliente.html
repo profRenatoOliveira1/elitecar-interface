@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Clientes</title>
+    <title>EliteCar - Cadastro Clientes</title>
     <!-- CSS -->
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/formulario.css">
@@ -14,6 +14,7 @@
 <body>
     <header>
         <nav>
+            <a href="index.html">INÍCIO</a>
             <a href="lista-clientes.html">CLIENTES</a>
             <a href="lista-carros.html">CARROS</a>
             <a href="lista-pedidos.html">PEDIDOS</a>
@@ -23,24 +24,26 @@
     <div class="container-formulario">
         <form action="">
             <label>
-                Nome
+                Nome *
                 <br>
                 <input type="text" name="input-nome-cliente" placeholder="Nome completo" required>
             </label>
             <label>
-                CPF
+                CPF *
                 <br>
-                <input type="number" name="input-cpf-cliente" placeholder="Informe o CPF" required>
+                <input type="text" name="input-cpf-cliente" placeholder="Informe o CPF" required>
             </label>
             <label>
-                Telefone
+                Telefone *
                 <br>
-                <input type="number" name="input-telefone-cliente" placeholder="Informe o Telefone" required>
+                <input type="text" name="input-telefone-cliente" placeholder="Informe o Telefone" required>
             </label>
 
-            <input type="button" value="CADASTRAR">
+            <input type="button" value="CADASTRAR" onclick="enviarFormularioCadastro()">
+            <p>* Campos obrigatórios</p>
         </form>
     </div>
+    <script src="js/cliente.js"></script>
 </body>
 
 </html>

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EliteCar - Cadastro Carro</title>
+    <title>EliteCar - Atualizar Carro</title>
     <!-- CSS -->
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/formulario.css">
     <link rel="stylesheet" href="css/navegacao.css">
 </head>
 
-<body>
+<body onload="carregarDadosFormulario()">
     <header>
         <nav>
             <a href="index.html">INÍCIO</a>
@@ -20,9 +20,10 @@
             <a href="lista-pedidos.html">PEDIDOS</a>
         </nav>
     </header>
-    <h1>CADASTRO DE CARRO</h1>
+    <h1>ATUALIZAR CARRO</h1>
     <div class="container-formulario">
         <form action="">
+            <input name="input-id-carro" disabled >
             <label>
                 Marca
                 <br>
@@ -44,7 +45,7 @@
                 <input type="text" name="input-cor-carro" placeholder="Informe a cor do carro" required>
             </label>
 
-            <input type="button" value="CADASTRAR" onclick="enviaFormulario()">
+            <input type="button" value="CADASTRAR" onclick="atualizarCarro()">
         </form>
     </div>
     <script src="js/carro.js"></script>
