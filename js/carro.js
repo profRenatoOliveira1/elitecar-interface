@@ -19,6 +19,12 @@ async function enviaFormulario() {
         "cor": document.querySelectorAll("input")[3].value // recuperar a cor do carro
     }
 
+    const validacaoCarro = validacaoFormularioCarro(carroDTO); // validar os dados do carro
+
+    if (!validacaoCarro) { // verificar se os dados do carro são válidos
+        return; // retornar em caso de dados inválidos
+    }
+
     try { // tentar enviar os dados para o servidor
         const respostaServidor = await fetch("http://localhost:3333/novo/carro", { // enviar os dados para o servidor
             method: 'POST', // configuração da requisição
@@ -27,19 +33,53 @@ async function enviaFormulario() {
             },
             body: JSON.stringify(carroDTO) // configuração do corpo da requisição
         });
-    
+
         // verificar se a resposta do servidor foi bem sucedida
-        if(!respostaServidor.ok) {
-            throw new Error("Erro ao enviar os dados para o servidor. Contate o administrador do sistema");
+        if (!respostaServidor.ok) { // verificar se a resposta do servidor não foi bem-sucedida
+            throw new Error("Erro ao enviar os dados para o servidor. Contate o administrador do sistema"); // lançar um erro
         }
-    
-        // exibir mensagem de sucesso
-        alert("Carro cadastrado com sucesso!");
-    
+
+        alert("Carro cadastrado com sucesso!"); // exibir mensagem de sucesso
+        window.location.href = "lista-carros.html"; // redirecionar o usuário para a página de lista de carros  
+
     } catch (error) { // tratar erros de comunicação com o servidor
         console.log(error); // exibir erro no console
         alert(`Erro ao se comunicar com o servidor. ${error}`); // exibir mensagem de erro para o usuário
     }
+}
+
+/**
+ * Valida os dados de um objeto carro.
+ *
+ * @param {Object} carro - O objeto carro a ser validado.
+ * @param {string} carro.marca - A marca do carro.
+ * @param {string} carro.modelo - O modelo do carro.
+ * @param {number} carro.ano - O ano de fabricação do carro.
+ * @param {string} carro.cor - A cor do carro.
+ * @returns {boolean} Retorna true se todos os campos do formulário forem válidos, caso contrário, retorna false.
+ */
+function validacaoFormularioCarro(carro) {
+    if (carro.marca === "" || carro.modelo === "" || carro.ano === "" || carro.cor === "") {
+        alert("Preencha todos os campos do formulário");
+        return false;
+    }
+
+    if (typeof carro.ano !== "number") {
+        alert("O ano do carro deve ser um número");
+        return false;
+    }
+
+    if (carro.ano < 1980 || carro.ano > new Date().getFullYear()) {
+        alert("O ano do carro deve ser maior que 1980 e menor ou igual que o ano atual");
+        return false;
+    }
+
+    if (carro.cor.length < 3 || carro.marca.length < 3 || carro.modelo.length < 3 || carro.cor.length > 20 || carro.marca.length > 20 || carro.modelo.length > 20) {
+        alert("Os atributos cor, marca e modelo do carro devem ter entre 3 e 20 caracteres");
+        return false;
+    }
+
+    return true;
 }
 
 /**
@@ -59,7 +99,7 @@ async function recuperarListaCarros() {
     try { // tenta fazer a requisição para o servidor
         const respostaServidor = await fetch('http://localhost:3333/lista/carros'); // faz a requisição para o servidor e armazena o resultado em uma variável
 
-        if(respostaServidor.ok) { // verifica se a resposta do servidor foi bem-sucedida
+        if (respostaServidor.ok) { // verifica se a resposta do servidor foi bem-sucedida
             const listaCarros = await respostaServidor.json(); // converte a resposta do servidor em JSON
             criarTabelaCarros(listaCarros); // chama a função para criar a tabela com os carros
         }
@@ -152,7 +192,7 @@ async function removerCarro(idCarro) {
     try { // tenta remover o carro do servidor
         const confirmacaoUsuario = confirm("Deseja realmente remover o carro?"); // solicita a confirmação do usuário
 
-        if(!confirmacaoUsuario) { // verifica se o usuário confirmou a remoção
+        if (!confirmacaoUsuario) { // verifica se o usuário confirmou a remoção
             return false; // retorna false em caso de cancelamento
         }
 
@@ -160,7 +200,7 @@ async function removerCarro(idCarro) {
             method: 'DELETE' // configuração do método da requisição
         });
 
-        if(respostaServidor.ok) { // verifica se a remoção foi bem-sucedida
+        if (respostaServidor.ok) { // verifica se a remoção foi bem-sucedida
             alert("Carro removido com sucesso!"); // exibe mensagem de sucesso
             window.location.reload(); // recarrega a página
         }
@@ -225,9 +265,15 @@ async function atualizarCarro() {
 
     try {  // tentar atualizar o carro no servidor
         const confirmacaoUsuario = confirm("Deseja realmente atualizar o carro?"); // solicitar a confirmação do usuário
-        
-        if(!confirmacaoUsuario) {   // verificar se o usuário confirmou a atualização
+
+        if (!confirmacaoUsuario) {   // verificar se o usuário confirmou a atualização
             return false; // retornar false em caso de cancelamento
+        }
+
+        const validacaoCarro = validacaoFormularioCarro(carroDTO); // validar os dados do carro
+
+        if (!validacaoCarro) { // verificar se os dados do carro são válidos
+            return; // retornar em caso de dados inválidos
         }
 
         const respostaServidor = await fetch(`http://localhost:3333/atualizar/carro/${carroDTO.idCarro}`, { // enviar os dados para o servidor
@@ -238,7 +284,7 @@ async function atualizarCarro() {
             body: JSON.stringify(carroDTO) // configuração do corpo da requisição
         });
 
-        if(respostaServidor.ok) { // verificar se a atualização foi bem-sucedida
+        if (respostaServidor.ok) { // verificar se a atualização foi bem-sucedida
             alert("Carro atualizado com sucesso!"); // exibir mensagem de sucesso
             window.location.href = "lista-carros.html"; // redirecionar o usuário para a página de lista de carros
         }

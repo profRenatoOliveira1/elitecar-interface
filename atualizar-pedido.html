@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EliteCar - Cadastro Pedido</title>
+    <title>EliteCar - Atualizar Pedido</title>
     <!-- CSS -->
     <link rel="stylesheet" href="css/principal.css">
     <link rel="stylesheet" href="css/formulario.css">
     <link rel="stylesheet" href="css/navegacao.css">
 </head>
 
-<body onload="criaSelectFormulario()">
+<body onload="carregarDadosFormulario()">
     <header>
         <nav>
             <a href="index.html">INÍCIO</a>
@@ -20,9 +20,15 @@
             <a href="lista-pedidos.html">PEDIDOS</a>
         </nav>
     </header>
-    <h1>CADASTRO DE PEDIDO DE VENDA</h1>
+    <h1>ATUALIZAR PEDIDO DE VENDA</h1>
     <div class="container-formulario">
         <form action="">
+            <label>
+                ID PEDIDO
+                <br>
+                <input type="text" name="id-pedido" disabled>
+                </select>
+            </label>
             <label>
                 Cliente
                 <br>
@@ -46,7 +52,7 @@
                 <input type="number" name="input-valor-pedido" placeholder="Informe o valor do pedido" required>
             </label>
 
-            <input type="button" value="CADASTRAR" onclick="enviarFormulario()">
+            <input type="button" value="ATUALIZAR" onclick="atualizarPedido()">
         </form>
     </div>
     <script src="js/pedido.js"></script>

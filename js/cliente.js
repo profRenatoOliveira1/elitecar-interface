@@ -18,7 +18,7 @@ async function enviarFormularioCadastro() {
 
     const validacao = validacaoFormularioCliente(clienteDTO); // valida os campos do formulário
 
-    if(!validacao) { // verifica se a validação é falsa
+    if (!validacao) { // verifica se a validação é falsa
         return null; // retorna um valor nulo
     }
 
@@ -31,10 +31,14 @@ async function enviarFormularioCadastro() {
             body: JSON.stringify(clienteDTO) // converte o objeto clienteDTO em JSON e envia no corpo da requisição
         });
 
-        if (respostaServidor.ok) { // verifica se a resposta foi bem sucedida (true)
-            alert('Cliente cadastrado com sucesso!'); // exibe um alerta com a mensagem de sucesso
-            window.location.href = 'lista-clientes.html'; // redireciona para a página de clientes
+        // verificar se a resposta do servidor foi bem sucedida
+        if (!respostaServidor.ok) { // verificar se a resposta do servidor não foi bem-sucedida
+            throw new Error("Erro ao enviar os dados para o servidor. Contate o administrador do sistema"); // lançar um erro
         }
+
+        alert('Cliente cadastrado com sucesso!'); // exibe um alerta com a mensagem de sucesso
+        window.location.href = 'lista-clientes.html'; // redireciona para a página de clientes
+
     } catch (error) { // trata qualquer erro que ocorrer no bloco de código
         console.error(error); // em caso de erro, imprime no console
         return null; // retorna um valor nulo
@@ -135,7 +139,7 @@ function validacaoFormularioCliente(cliente) {
     if (cliente.telefone.length < 10) { // verifica se o telefone tem pelo menos 10 dígitos
         alert('Telefone inválido!'); // exibe um alerta com a mensagem
         return false; // retorna false
-    } 
+    }
 
     return true; // se todas as validações forem verdadeiras, retorna true
 }
@@ -240,7 +244,7 @@ async function removerCliente(idCliente) {
     try { // tenta executar o bloco de código
         const confirmacaoUsuario = confirm('Deseja realmente remover o cliente?'); // exibe um alerta de confirmação
 
-        if(!confirmacaoUsuario) { // verifica se a confirmação é falsa
+        if (!confirmacaoUsuario) { // verifica se a confirmação é falsa
             return false;  // retorna false
         }
 
@@ -255,7 +259,7 @@ async function removerCliente(idCliente) {
     } catch (error) { // trata qualquer erro que ocorrer no bloco de código
         console.error(error); // em caso de erro, imprime no console
         return null; // retorna um valor nulo
-    } 
+    }
 }
 
 /**
@@ -290,23 +294,35 @@ function carregarDadosFormulario() {
     document.querySelectorAll("input")[3].value = formatarTelefone(cliente.telefone); // preenche o campo de telefone
 }
 
+/**
+ * Atualiza os dados de um cliente.
+ * 
+ * Esta função recupera os dados do cliente a partir dos inputs do formulário,
+ * valida os dados e envia uma requisição para atualizar o cliente no servidor.
+ * 
+ * Essa função deve ser chamada ao clicar no botão de atualizar do formulário.
+ * 
+ * @async
+ * @function atualizarCliente
+ * @returns {Promise<void|null>} Retorna null se a validação falhar ou se ocorrer um erro.
+ */
 async function atualizarCliente() {
     const clienteDTO = { // cria um objeto com os dados do cliente
         idCliente: document.querySelector('input[name="input-id-cliente"]').value, // recupera o valor do input com name "id"
         nome: document.querySelector('input[name="input-nome-cliente"]').value, // recupera o valor do input com name "nome"
-        cpf: document.querySelector('input[name="input-cpf-cliente"]').value.replace(/\D/g, ''), // recupera o valor do input com name "cpf"
-        telefone: document.querySelector('input[name="input-telefone-cliente"]').value.replace(/\D/g, '') // recupera o valor do input com name "telefone"
+        cpf: document.querySelector('input[name="input-cpf-cliente"]').value.replace(/\D/g, ''), // recupera o valor do input com name "cpf" e remove a máscara
+        telefone: document.querySelector('input[name="input-telefone-cliente"]').value.replace(/\D/g, '') // recupera o valor do input com name "telefone" e remove a máscara
     }
 
     const validacao = validacaoFormularioCliente(clienteDTO); // valida os campos do formulário
 
-    if(!validacao) { // verifica se a validação é falsa
+    if (!validacao) { // verifica se a validação é falsa
         return null; // retorna um valor nulo
     }
 
     try { // tenta executar o bloco de código
         const respostaServidor = await fetch(`http://localhost:3333/atualizar/cliente/${clienteDTO.idCliente}`, { // faz a requisição no servidor
-            method: 'POST', // configura o método da requisição
+            method: 'PUT', // configura o método da requisição
             headers: { // configuira os cabeçalhos da requisição
                 'Content-Type': 'application/json'  // configura o tipo de conteúdo da requisição para JSON
             },

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/navegacao.css">
     <link rel="stylesheet" href="css/listagem.css">
 </head>
-<body>
+<body onload="recuperaListaPedidos()">
     <header>
         <nav>
             <a href="index.html">INÍCIO</a>
@@ -42,41 +42,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>APARECIDA EVELYN ISABELLE DA ROCHA</td>
-                    <td>Hilux GR-Sport</td>
-                    <td>12/02/2024</td>
-                    <td>R$ 450.000,00</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>SEVERINO GERALDO FERNANDES</td>
-                    <td>CLA 200 PROGRESSIVE</td>
-                    <td>05/06/2024</td>
-                    <td>R$ 1.250.000,00</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>JAQUELINE AMANDA ADRIANA MARTINS</td>
-                    <td>X6 M COMPETITION</td>
-                    <td>27/11/2023</td>
-                    <td>R$ 872.163,57</td>
-                    <td>
-                        <img src="assets/icons/pencil-square.svg" alt="editar">
-                        <img src="assets/icons/trash-fill.svg" alt="excluir">
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
+    <script src="js/pedido.js"></script>
 </body>
 </html>
